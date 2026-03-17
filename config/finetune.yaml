@@ -1,0 +1,46 @@
+# config/finetune.yaml  — Supervised multi-task fine-tuning
+
+defaults:
+  - default
+
+finetune:
+  epochs:       100
+  batch_size:   32
+  lr:           5.0e-4
+  weight_decay: 1.0e-4
+  warmup_epochs: 10
+  grad_clip:    1.0
+  patience:     10           # early stopping
+
+  # Multi-task uncertainty weighting (Kendall et al. 2018)
+  init_log_sigma2: [0.0, 0.0, 0.0]   # [continuous, classification, silent]
+
+  # Class imbalance for silent pain detection
+  # Computed automatically from dataset; override here if needed
+  silent_pos_weight: null   # set to float to override
+
+  # Task heads
+  heads:
+    continuous:
+      layers: 1              # linear head
+    classification:
+      n_classes: 4           # none/mild/moderate/severe
+      hidden: [512, 256]
+    silent:
+      hidden: [512, 256]
+
+  # Data augmentation during fine-tuning
+  aug:
+    facial_brightness:   0.20
+    facial_contrast:     [0.8, 1.2]
+    facial_flip_p:       0.5
+    body_jitter_px:      5
+    audio_stretch:       [0.9, 1.1]
+    audio_pitch_semi:    2
+    physio_amp_scale:    [0.95, 1.05]
+
+output:
+  dir:     checkpoints/
+  prefix:  finetuned_full
+  save_best: true
+  save_every: 10

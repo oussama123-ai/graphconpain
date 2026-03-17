@@ -1,0 +1,42 @@
+# config/default.yaml  — GraphConPain default hyperparameters
+
+model:
+  # Feature extraction
+  facial_dim:  17          # 17 pain-relevant AUs (OpenFace 2.2.0)
+  body_dim:    102         # 17 keypoints × (x,y,conf) + 10 derived features
+  audio_dim:   128         # MFCC CNN output
+  physio_dim:  64          # 1D CNN + hand-crafted HRV/EDA/resp features
+
+  # GAT
+  gat_heads:       4
+  gat_hidden_dim:  64      # per head → 256 after concat
+  gat_layers:      2
+  gat_dropout:     0.1
+  gat_alpha:       0.2     # LeakyReLU negative slope
+
+  # Temporal model
+  gru_layers:      2
+  gru_hidden:      512     # per direction → 1024 bidirectional
+  gru_dropout:     0.2
+
+  # Global pooling output dim
+  graph_embed_dim: 64
+
+data:
+  fps:          30
+  audio_sr:     16000
+  physio_sr:    250
+  seq_len:      90         # frames (3 seconds)
+  max_gap:      5          # max missing frames to interpolate
+
+training:
+  seed:         42
+  num_workers:  4
+  pin_memory:   true
+  use_amp:      true
+  grad_clip:    1.0
+
+evaluation:
+  folds:        5
+  bootstrap:    10000
+  alpha:        0.05

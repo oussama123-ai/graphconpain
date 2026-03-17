@@ -1,0 +1,27 @@
+torch>=2.0.1
+torchvision>=0.15.2
+torchaudio>=2.0.2
+torch-geometric>=2.3.1
+numpy>=1.24.0
+scipy>=1.11.0
+scikit-learn>=1.2.0
+pandas>=1.5.0
+opencv-python>=4.8.0
+Pillow>=9.4.0
+librosa>=0.10.0
+openface>=2.2.0; sys_platform=="linux"
+alphapose>=0.4.0; sys_platform=="linux"
+neurokit2>=0.2.0
+shap>=0.42.0
+matplotlib>=3.7.0
+seaborn>=0.12.0
+tqdm>=4.65.0
+wandb>=0.15.0
+PyYAML>=6.0
+tensorboard>=2.12.0
+h5py>=3.8.0
+einops>=0.6.1
+timm>=0.9.0
+pyg-lib>=0.2.0
+torch-scatter>=2.1.1
+torch-sparse>=0.6.17

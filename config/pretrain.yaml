@@ -1,0 +1,25 @@
+# config/pretrain.yaml  — Contrastive self-supervised pretraining
+
+defaults:
+  - default
+
+pretrain:
+  epochs:       50
+  batch_size:   32
+  lr:           1.0e-3
+  weight_decay: 0.0          # no weight decay during SSL
+  temperature:  0.5          # InfoNCE temperature τ (ablation: 0.1→0.9)
+  proj_dim:     128          # projection head output dim
+  proj_layers:  2            # MLP layers in projection head
+
+  # Graph-aware augmentations
+  aug:
+    node_noise_sigma:   0.1
+    node_dropout_p:     0.2
+    edge_perturb_range: [0.8, 1.2]
+    temporal_jitter:    5      # ±5 frames
+
+output:
+  dir:     checkpoints/
+  prefix:  pretrained_ssl
+  save_every: 10             # epochs
